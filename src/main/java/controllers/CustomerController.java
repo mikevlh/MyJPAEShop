@@ -48,7 +48,6 @@ public class CustomerController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -68,7 +67,7 @@ public class CustomerController extends HttpServlet {
         
         Customer c = em.find(Customer.class, 1);
         request.setAttribute("customer", c);
-        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/customer.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/customer.jsp");
         rd.forward(request, response);
         
         
@@ -111,6 +110,6 @@ public class CustomerController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
