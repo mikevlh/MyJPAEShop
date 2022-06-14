@@ -7,6 +7,7 @@ package controllers;
 import dao.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,29 +59,10 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
         Customer c1 = dao.create();
-//        request.setAttribute("customer", c);
-//        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/customer.jsp");
-//        rd.forward(request, response);
-        
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CustomerController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Customer Controller at " + request.getContextPath() + "</h1>");
-            out.println("<h3>Customer's Data</h3>");
-            out.println("<div><p>" + c1 + "</p></div>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.setAttribute("customer", c1);
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/customer.jsp");
+        rd.forward(request, response);
     }
 
     /**
