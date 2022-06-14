@@ -1,3 +1,8 @@
+models\Product_.class
 controllers\CustomerController.class
+models\Product.class
 models\Customer.class
+dao\CustomerDAO.class
+dao\CustomerDAOInterface.class
+controllers\ProductController.class
 models\Customer_.class
