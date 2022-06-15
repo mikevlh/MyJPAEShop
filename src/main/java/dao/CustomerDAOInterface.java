@@ -13,11 +13,11 @@ import models.Customer;
  */
 public interface CustomerDAOInterface {
     // CRUD
-//    Customer create(); // firstName = John, lastName = Doe, email = john@doe.com
-//    Customer create(String firstName, String lastName); // email = ""
     Customer create(String firstName, String lastName, String email);
     
     Customer findById(Integer id);
     Set<Customer> findAll();
+    
+    boolean delete(Integer id);
     
 }

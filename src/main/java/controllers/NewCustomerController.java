@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Customer;
 import services.CustomerService;
 
 /**
@@ -75,8 +76,12 @@ public class NewCustomerController extends HttpServlet {
         String firstName = request.getParameter("firstName").toString();
         String lastName = request.getParameter("lastName").toString();
         String email = request.getParameter("email").toString();
-        customerService.create(firstName, lastName, email);
-        response.sendRedirect("Customers");
+        Customer c = customerService.create(firstName, lastName, email);
+        if(c == null) {
+            response.sendRedirect("NewCustomer");
+        } else {
+            response.sendRedirect("Customers");
+        }
     }
 
     /**

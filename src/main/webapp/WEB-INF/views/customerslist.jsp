@@ -25,13 +25,17 @@
                 <div class='col fs-4 fw-bold'>First Name</div>
                 <div class='col fs-4 fw-bold'>Last Name</div>
                 <div class='col fs-4 fw-bold'>Email</div>
+                <div class='col fs-4 fw-bold'>Actions</div>
             </div>
-            <c:forEach items="${customers}" var="customer">
+            <c:forEach items='${customers}' var="customer">
                 <div class='row border-bottom border-primary'>
                         <div class='col'>${customer.getId()}</div>
                         <div class='col'>${customer.getFirstName()}</div>
                         <div class='col'>${customer.getLastName()}</div>
                         <div class='col'>${customer.getEmail()}</div>
+                        <div class='col'>
+                            <a href='DeleteCustomer?id=${customer.getId()}' class='btn btn-danger'>Delete</a>&nbsp;&nbsp;&nbsp;<a href='#' class='btn btn-info'>Update</a>
+                        </div>
                 </div>
             </c:forEach>
         </div>

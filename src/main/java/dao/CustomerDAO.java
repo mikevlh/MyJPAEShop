@@ -31,22 +31,40 @@ public class CustomerDAO implements CustomerDAOInterface {
         Customer c = new Customer(firstName, lastName, email);
         em.persist(c);
         em.getTransaction().commit();
+        em.close();
         return(c);
     }
 
     @Override
     public Customer findById(Integer id) {
         EntityManager em = emf.createEntityManager();
-        return(em.find(Customer.class, id));
+        Customer c = em.find(Customer.class, id);
+        em.close();
+        return(c);
     }
 
     @Override
     public Set<Customer> findAll() {
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("SELECT c FROM customers c");
+        Query query = em.createQuery("SELECT c FROM customers c"); // JPQL
         Set<Customer> customers = new HashSet<>(query.getResultList());
-        
+        em.close();
         return(customers);
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        Customer c =  em.find(Customer.class, id);
+        if(c != null) {
+            em.getTransaction().begin();
+            em.remove(c);
+            em.getTransaction().commit();
+            em.close();
+            return(true);
+        }
+        em.close();
+        return(false);
     }
     
 }

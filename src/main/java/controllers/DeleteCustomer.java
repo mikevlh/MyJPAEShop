@@ -6,7 +6,6 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +16,7 @@ import services.CustomerService;
  *
  * @author George.Pasparakis
  */
-public class CustomerController extends HttpServlet {
-    
+public class DeleteCustomer extends HttpServlet {
     private CustomerService customerService = new CustomerService();
 
     /**
@@ -38,10 +36,10 @@ public class CustomerController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CustomerController</title>");            
+            out.println("<title>Servlet DeleteCustomer</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CustomerController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteCustomer at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +56,10 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println(request.getRequestURI());
-            request.setAttribute("customers", customerService.findAll());
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/customerslist.jsp");
-            rd.forward(request, response);
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        if(customerService.delete(id)) {
+            response.sendRedirect("Customers");
+        }
     }
 
     /**

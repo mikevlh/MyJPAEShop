@@ -31,6 +31,10 @@ public class CustomerService implements CustomerServiceInterface {
 
     @Override
     public Customer create(String firstName, String lastName, String email) {
+        if(firstName.equalsIgnoreCase("") && lastName.equalsIgnoreCase("") && email.equalsIgnoreCase("")) {
+           //return(this.create()); 
+           return(null);
+        }
         return(dao.create(firstName, lastName, email));
     }
 
@@ -42,6 +46,11 @@ public class CustomerService implements CustomerServiceInterface {
     @Override
     public Set<Customer> findAll() {
         return(dao.findAll());
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return(dao.delete(id));
     }
     
 }
