@@ -17,9 +17,7 @@ import services.CustomerService;
  *
  * @author George.Pasparakis
  */
-public class CustomerController extends HttpServlet {
-    
-//    private CustomerDAO dao = new CustomerDAO();
+public class NewCustomerController extends HttpServlet {
     private CustomerService customerService = new CustomerService();
 
     /**
@@ -39,10 +37,10 @@ public class CustomerController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CustomerController</title>");            
+            out.println("<title>Servlet NewCustomerController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CustomerController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet NewCustomerController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,10 +57,8 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println(request.getRequestURI());
-            request.setAttribute("customers", customerService.findAll());
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/customerslist.jsp");
-            rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/createcustomer.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -76,7 +72,11 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String firstName = request.getParameter("firstName").toString();
+        String lastName = request.getParameter("lastName").toString();
+        String email = request.getParameter("email").toString();
+        customerService.create(firstName, lastName, email);
+        response.sendRedirect("Customers");
     }
 
     /**
