@@ -1,8 +1,11 @@
 models\Product_.class
+services\CustomerServiceInterface.class
 controllers\CustomerController.class
+controllers\NewCustomerController.class
 models\Product.class
 models\Customer.class
 dao\CustomerDAO.class
 dao\CustomerDAOInterface.class
 controllers\ProductController.class
 models\Customer_.class
+services\CustomerService.class

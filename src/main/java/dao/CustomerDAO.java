@@ -4,9 +4,12 @@
  */
 package dao;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import models.Customer;
 
 /**
@@ -15,41 +18,35 @@ import models.Customer;
  */
 public class CustomerDAO implements CustomerDAOInterface {
 
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
     
     public CustomerDAO() {
         emf = Persistence.createEntityManagerFactory("com.pcedu_MyJPAEShop_war_1.0-SNAPSHOTPU");
     }
-    
-    @Override
-    public Customer create() {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Customer c = new Customer("John", "Doe", "john@doe.com");
-        em.persist(c);
-        em.getTransaction().commit();
-        return(c);
-    }
-
-    @Override
-    public Customer create(String firstName, String lastName) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.pcedu_MyJPAEShop_war_1.0-SNAPSHOTPU");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Customer c = new Customer(firstName, lastName, "");
-        em.persist(c);
-        em.getTransaction().commit();
-        return(c);
-    }
 
     @Override
     public Customer create(String firstName, String lastName, String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Customer c = new Customer(firstName, lastName, email);
+        em.persist(c);
+        em.getTransaction().commit();
+        return(c);
     }
 
     @Override
-    public void findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Customer findById(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        return(em.find(Customer.class, id));
+    }
+
+    @Override
+    public Set<Customer> findAll() {
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createQuery("SELECT c FROM customers c");
+        Set<Customer> customers = new HashSet<>(query.getResultList());
+        
+        return(customers);
     }
     
 }
