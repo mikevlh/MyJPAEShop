@@ -19,4 +19,6 @@ public interface CustomerServiceInterface {
     
     Customer findById(Integer id);
     Set<Customer> findAll();
+    
+    boolean delete(Integer id);
 }

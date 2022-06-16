@@ -5,7 +5,6 @@
 package controllers;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +15,10 @@ import services.ProductService;
  *
  * @author George.Pasparakis
  */
-public class ProductController extends HttpServlet {
+public class DeleteProduct extends HttpServlet {
     private ProductService productService = new ProductService();
-    
 
-    /**
+     /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -31,10 +29,10 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println(request.getRequestURI());
-            request.setAttribute("products", productService.findAll());
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/productslist.jsp");
-            rd.forward(request, response);
+        Long id = Long.parseLong(request.getParameter("id"));
+        if(productService.delete(id)) {
+            response.sendRedirect("Products");
+        }
     }
 
     /**
@@ -48,7 +46,6 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
     }
 
     /**

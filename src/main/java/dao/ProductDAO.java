@@ -10,55 +10,54 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import models.Customer;
+import models.Product;
 
 /**
  *
  * @author George.Pasparakis
  */
-public class CustomerDAO implements CustomerDAOInterface {
-
+public class ProductDAO implements ProductDAOInterface {
     private final EntityManagerFactory emf;
     
-    public CustomerDAO() {
+    public ProductDAO() {
         emf = Persistence.createEntityManagerFactory("com.pcedu_MyJPAEShop_war_1.0-SNAPSHOTPU");
     }
 
     @Override
-    public Customer create(String firstName, String lastName, String email) {
+    public Product create(String name, String description, double price) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Customer c = new Customer(firstName, lastName, email);
-        em.persist(c);
+        Product p = new Product(name, description, price);
+        em.persist(p);
         em.getTransaction().commit();
         em.close();
-        return(c);
+        return(p);
     }
 
     @Override
-    public Customer findById(Integer id) {
+    public Product findById(Long id) {
         EntityManager em = emf.createEntityManager();
-        Customer c = em.find(Customer.class, id);
+        Product p = em.find(Product.class, id);
         em.close();
-        return(c);
+        return(p);
     }
 
     @Override
-    public Set<Customer> findAll() {
+    public Set<Product> findAll() {
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("SELECT c FROM customers c"); // JPQL
-        Set<Customer> customers = new HashSet<>(query.getResultList());
+        Query query = em.createQuery("SELECT p FROM products p"); // JPQL
+        Set<Product> products = new HashSet<>(query.getResultList());
         em.close();
-        return(customers);
+        return(products);
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         EntityManager em = emf.createEntityManager();
-        Customer c =  em.find(Customer.class, id);
-        if(c != null) {
+        Product p =  em.find(Product.class, id);
+        if(p != null) {
             em.getTransaction().begin();
-            em.remove(c);
+            em.remove(p);
             em.getTransaction().commit();
             em.close();
             return(true);

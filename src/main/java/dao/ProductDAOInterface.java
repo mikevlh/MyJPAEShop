@@ -5,19 +5,18 @@
 package dao;
 
 import java.util.Set;
-import models.Customer;
+import models.Product;
 
 /**
  *
  * @author George.Pasparakis
  */
-public interface CustomerDAOInterface {
+public interface ProductDAOInterface {
     // CRUD
-    Customer create(String firstName, String lastName, String email);
+    Product create(String name, String description, double price);
     
-    Customer findById(Integer id);
-    Set<Customer> findAll();
+    Product findById(Long id);
+    Set<Product> findAll();
     
-    boolean delete(Integer id);
-    
+    boolean delete(Long id);
 }
