@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import models.Customer;
+import models.Product;
 
 /**
  *
@@ -29,6 +30,7 @@ public class CustomerDAO implements CustomerDAOInterface {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Customer c = new Customer(firstName, lastName, email);
+        c.getProducts().add(new Product("Product 2", "Product 2 Description", 200));
         em.persist(c);
         em.getTransaction().commit();
         em.close();
