@@ -26,6 +26,14 @@ public class Product implements Serializable {
     private String description;
     private double price;
 
+    public Product() {}
+
+    public Product(String name, String description, double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }
@@ -33,7 +41,31 @@ public class Product implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -56,7 +88,14 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Product[ id=" + id + " ]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Product{");
+        sb.append("id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", description=").append(description);
+        sb.append(", price=").append(price);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
 }
