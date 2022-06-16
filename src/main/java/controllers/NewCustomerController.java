@@ -46,9 +46,11 @@ public class NewCustomerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String firstName = request.getParameter("firstName").toString();
         String lastName = request.getParameter("lastName").toString();
         String email = request.getParameter("email").toString();
+        System.out.println(firstName + " " + lastName + " " + email);
         Customer c = customerService.create(firstName, lastName, email);
         if(c == null) {
             response.sendRedirect("NewCustomer");

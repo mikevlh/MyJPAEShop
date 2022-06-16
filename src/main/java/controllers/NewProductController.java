@@ -50,6 +50,7 @@ public class NewProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name").toString();
         String description = request.getParameter("description").toString();
         Long price = Long.parseLong(request.getParameter("price"));

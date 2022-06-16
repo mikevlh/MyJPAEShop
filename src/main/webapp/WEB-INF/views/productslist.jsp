@@ -26,13 +26,11 @@
             background-color: lightgrey;
             height: 40%;
             line-height: 0.74em;
-            /*text-align: center;*/
         }
         body > div > div.row:nth-child(even) {
             /*background-color: lightslategrey;*/
             height: 40%;
             line-height: 0.74em;
-            /*text-align: center;*/
         }
     </style>
     <body>
