@@ -5,11 +5,17 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -21,20 +27,28 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="customerId")
     private Integer id;
-    
+
     private String firstName;
     private String lastName;
     private String email;
-    
-    public Customer() {}
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Orders", 
+        joinColumns = { @JoinColumn(name = "customerId") }, 
+        inverseJoinColumns = { @JoinColumn(name = "productId") })
+    private List<Product> products = new ArrayList<>();
+
+    public Customer() {
+    }
 
     public Customer(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -42,7 +56,7 @@ public class Customer implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -65,6 +79,14 @@ public class Customer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override
@@ -95,11 +117,9 @@ public class Customer implements Serializable {
         sb.append(", firstName=").append(firstName);
         sb.append(", lastName=").append(lastName);
         sb.append(", email=").append(email);
+        sb.append(", products=").append(products);
         sb.append('}');
         return sb.toString();
     }
 
-    
-    
-    
 }

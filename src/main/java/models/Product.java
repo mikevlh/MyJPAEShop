@@ -5,10 +5,14 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -20,11 +24,15 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="productId")
     private Long id;
     
     private String name;
     private String description;
     private double price;
+    
+    @ManyToMany(mappedBy="products")
+    private List<Customer> customers = new ArrayList<>();
 
     public Product() {}
 
@@ -66,6 +74,14 @@ public class Product implements Serializable {
         this.price = price;
     }
     
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -94,6 +110,7 @@ public class Product implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", price=").append(price);
+        sb.append(", customers=").append(customers);
         sb.append('}');
         return sb.toString();
     }
